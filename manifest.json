@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-09-23T09:12:23.517Z",
+  "site": {
+    "shopName": "Loop & Knot",
+    "tagline": "Handmade crochet pieces, stitched slowly in small batches.",
+    "email": "ahiretejas2341@gmail.com.com"
+  },
+  "categories": [
+    {
+      "id": "amigurumi",
+      "name": "Amigurumi",
+      "blurb": "Small stuffed friends, worked in the round and filled by hand.",
+      "color": "#FFE36E",
+      "order": 1,
+      "items": [
+        {
+          "src": "assets/amigurumi/ninja.jpg",
+          "title": "Ninja",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/amigurumi/octopus.jpg",
+          "title": "Octopus",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/amigurumi/Penguins.jpg",
+          "title": "Penguins",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/amigurumi/poke.jpg",
+          "title": "Poke",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/amigurumi/Sunflower.jpg",
+          "title": "Sunflower",
+          "price": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "wear",
+      "name": "Wearables",
+      "blurb": "Beanies, cardigans and scarves in soft cotton and merino.",
+      "color": "#FF8FC7",
+      "order": 2,
+      "items": [
+        {
+          "src": "assets/wear/bandana.jpg",
+          "title": "Bandana",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/wear/flower.jpg",
+          "title": "Flower",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/wear/flower2.jpg",
+          "title": "Flower2",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/wear/flower3.jpg",
+          "title": "Flower3",
+          "price": "",
+          "note": ""
+        },
+        {
+          "src": "assets/wear/hairtye.jpg",
+          "title": "Hairtye",
+          "price": "",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "name": "Home",
+      "blurb": "Blankets, coasters and baskets for slow mornings.",
+      "color": "#7FE0C2",
+      "order": 3,
+      "items": []
+    },
+    {
+      "id": "bags",
+      "name": "Bags",
+      "blurb": "Market totes, pouches and little everyday carriers.",
+      "color": "#C9B6FF",
+      "order": 4,
+      "items": []
+    }
+  ]
+}

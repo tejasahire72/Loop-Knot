@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Handmade crochet: amigurumi, abwearles, home pieces and bags.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loop &amp; Knot — handmade crochet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#2B3BD6; --bg-2:#2333C2; --ink:#FFF9F2; --ink-soft:rgba(255,249,242,.72);
+  --line:rgba(255,249,242,.22); --panel:#FFF9F2; --panel-ink:#1B2280;
+  --accent:#FFE36E; --danger:#FF6B6B;
+  --font:"Bricolage Grotesque",ui-rounded,"Avenir Next",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ --bg:#141C73; --bg-2:#0F1660; --panel:#1E2786; --panel-ink:#FFF9F2; } }
+:root[data-theme="dark"]{ --bg:#141C73; --bg-2:#0F1660; --panel:#1E2786; --panel-ink:#FFF9F2; }
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.5;overflow-x:hidden;transition:background .6s}
+img{max-width:100%;display:block}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,header,footer{position:relative;z-index:1}
+
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px clamp(18px,4vw,48px);backdrop-filter:blur(10px);background:color-mix(in srgb,var(--bg) 70%,transparent)}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.02em;font-variation-settings:"wdth" 80;text-decoration:none;color:var(--ink)}
+.nav nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.nav nav a{color:var(--ink);text-decoration:none;padding:6px 12px;border-radius:999px;font-size:15px}
+.nav nav a:hover{background:var(--line)}
+
+.hero{min-height:calc(100vh - 80px);display:grid;align-content:center;padding:0 clamp(18px,5vw,64px) 60px;cursor:grab;touch-action:pan-y}
+.hero:active{cursor:grabbing}
+.hero h1{margin:0;font-size:clamp(56px,11vw,168px);line-height:.86;letter-spacing:-.045em;font-weight:800;font-variation-settings:"wdth" 75,"opsz" 96;max-width:9ch}
+.hero h1 .row{display:block;overflow:hidden}
+.hero h1 .row span{display:inline-block;transform:translateY(105%);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 .row:nth-child(2) span{animation-delay:.12s}
+.hero h1 .row:nth-child(3) span{animation-delay:.24s}
+@keyframes rise{to{transform:none}}
+.hero p{max-width:34ch;font-size:clamp(18px,2vw,22px);color:var(--ink-soft);margin:28px 0 0}
+.hint{margin-top:36px;font-size:14px;color:var(--ink-soft);display:flex;gap:10px;align-items:center}
+.hint i{width:28px;height:2px;background:currentColor;display:inline-block}
+
+.shop{padding:40px 0 120px;scroll-margin-top:80px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;padding:0 clamp(18px,5vw,64px)}
+.tab{border:2px solid var(--line);background:transparent;border-radius:999px;padding:10px 20px;font-size:18px;font-weight:600;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.tab[aria-selected="true"]{background:var(--c);border-color:var(--c);color:#1B2280}
+.cat-head{padding:44px clamp(18px,5vw,64px) 0;display:grid;gap:10px}
+.cat-head h2{margin:0;font-size:clamp(44px,8vw,112px);line-height:.9;letter-spacing:-.04em;font-weight:800;font-variation-settings:"wdth" 78,"opsz" 96;color:var(--c,var(--ink));transition:color .5s}
+.cat-head p{margin:0;max-width:44ch;color:var(--ink-soft);font-size:19px}
+
+.stage{position:relative;overflow:hidden;height:clamp(420px,62vh,560px);perspective:1400px;margin-top:10px;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.stage:active{cursor:grabbing}
+.ring{position:absolute;left:50%;top:50%;transform-style:preserve-3d;width:0;height:0}
+.card{position:absolute;left:calc(var(--w)/-2);top:calc(var(--h)/-2);width:var(--w);height:var(--h);border:0;padding:0;background:var(--panel);color:var(--panel-ink);border-radius:22px;overflow:hidden;cursor:pointer;text-align:left;display:grid;grid-template-rows:1fr auto;box-shadow:0 30px 60px -30px rgba(5,10,60,.6);transition:opacity .3s}
+.card .img{position:relative;overflow:hidden;background:var(--c)}
+.card .img img{width:100%;height:100%;object-fit:cover}
+.card .meta{display:flex;justify-content:space-between;gap:8px;padding:12px 16px 14px;font-weight:600;font-size:16px}
+.card .meta .price{opacity:.7;font-weight:500;white-space:nowrap}
+.stitch{position:absolute;inset:0;background-color:var(--c);
+  background-image:
+   radial-gradient(ellipse 7px 12px at 30% 50%,rgba(255,255,255,.45) 55%,transparent 60%),
+   radial-gradient(ellipse 7px 12px at 70% 50%,rgba(0,0,40,.12) 55%,transparent 60%);
+  background-size:26px 22px}
+.stitch::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.35),transparent 55%)}
+.sample-tag{position:absolute;left:12px;top:12px;background:rgba(27,34,128,.85);color:#FFF9F2;font-size:12px;padding:4px 10px;border-radius:999px;z-index:1}
+.controls{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:4px}
+.arrow{width:56px;height:56px;border-radius:50%;border:2px solid var(--line);background:transparent;font-size:22px;cursor:pointer}
+.arrow:hover{background:var(--line)}
+.count{min-width:70px;text-align:center;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--ink-soft);padding:24px}
+
+footer{padding:80px clamp(18px,5vw,64px) 60px;border-top:2px solid var(--line);display:grid;gap:18px}
+footer h3{margin:0;font-size:clamp(34px,6vw,72px);line-height:.95;letter-spacing:-.03em;font-variation-settings:"wdth" 80;max-width:14ch}
+footer .links{display:flex;gap:12px;flex-wrap:wrap}
+footer .links a{color:#1B2280;background:var(--accent);padding:12px 20px;border-radius:999px;text-decoration:none;font-weight:700}
+footer small{color:var(--ink-soft)}
+
+/* detail */
+.overlay{position:fixed;inset:0;z-index:20;background:rgba(8,12,70,.6);backdrop-filter:blur(6px);display:none;place-items:center;padding:20px}
+.overlay.open{display:grid}
+.detail{background:var(--panel);color:var(--panel-ink);border-radius:28px;max-width:880px;width:100%;max-height:calc(100% - 20px);overflow:auto;display:grid;grid-template-columns:1.1fr 1fr}
+.detail .pic{position:relative;min-height:320px;background:var(--c)}
+.detail .pic img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.detail .body{padding:32px;display:grid;align-content:start;gap:14px}
+.detail h4{margin:0;font-size:36px;line-height:1;letter-spacing:-.02em;font-variation-settings:"wdth" 85}
+.detail .p{font-size:22px;font-weight:600}
+.detail .n{margin:0;opacity:.8;white-space:pre-line}
+.btn{display:inline-block;border:0;border-radius:999px;padding:12px 20px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center}
+.btn.primary{background:#1B2280;color:#FFF9F2}
+:root[data-theme="dark"] .btn.primary{background:var(--accent);color:#1B2280}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.primary{background:var(--accent);color:#1B2280}}
+.btn.ghost{background:transparent;border:2px solid currentColor;color:inherit}
+.close{justify-self:end;background:none;border:0;font-size:28px;cursor:pointer;color:inherit;line-height:1}
+@media (max-width:700px){.detail{grid-template-columns:1fr}.detail .pic{min-height:260px}}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#FFF9F2;color:#1B2280;padding:12px 18px;border-radius:14px;z-index:40;font-weight:600;box-shadow:0 10px 30px rgba(0,0,40,.3);display:none;max-width:90vw}
+.toast.show{display:block}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.hero h1 .row span{transform:none}html{scroll-behavior:auto}}
+@media (max-width:640px){.nav nav a.cl{display:none}}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <a class="logo" href="#top" id="logo">Loop &amp; Knot</a>
+  <nav id="navlinks"></nav>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero" aria-label="Intro">
+    <h1><span class="row"><span>Made one</span></span><span class="row"><span>loop at</span></span><span class="row"><span>a time.</span></span></h1>
+    <p id="tagline">Handmade crochet pieces, stitched slowly in small batches.</p>
+    <div class="hint"><i></i>Drag the yarn to spin it, then scroll to the shop</div>
+  </section>
+
+  <section class="shop" id="shop" aria-label="Shop">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="cat-head"><h2 id="catName"></h2><p id="catBlurb"></p></div>
+    <div class="stage" id="stage"><div class="ring" id="ring"></div></div>
+    <div class="controls">
+      <button class="arrow" id="prev" aria-label="Previous piece">‹</button>
+      <span class="count" id="count"></span>
+      <button class="arrow" id="next" aria-label="Next piece">›</button>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <h3>Want something made in your colours?</h3>
+  <div class="links" id="contactLinks"></div>
+  <small id="copy"></small>
+</footer>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="detail" id="detail"></div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+const DEFAULT_CONFIG = {
+  shopName: "Loop & Knot",
+  tagline: "Handmade crochet pieces, stitched slowly in small batches.",
+  email: "ahiretejas2341@gmail.com",
+  /* instagram: "https://www.instagram.com/crochet_studioe?stkn=MTh4MmVseWd4cWJxYQ==",*/
+  categories: [
+    { id:"amigurumi", name:"Amigurumi", blurb:"Small stuffed friends, worked in the round and filled by hand.", color:"#FFE36E" },
+    { id:"wear", name:"Wearables", blurb:"Bandana, cardigans and scarves in soft cotton and merino.", color:"#FF8FC7" },
+    { id:"home", name:"Home", blurb:"Blankets, coasters and baskets for slow mornings.", color:"#7FE0C2" },
+    { id:"bags", name:"Bags", blurb:"Market totes, pouches and little everyday carriers.", color:"#C9B6FF" }
+  ]
+};
+const SAMPLE_NAMES = {
+  amigurumi:["Sunflower pot","Tiny octopus","Mushroom pal","Bear in a hat","Whale"],
+  wear:["Chunky beanie","Granny cardigan","Striped scarf","Bucket hat","Mittens"],
+  home:["Waffle blanket","Coaster set","Plant basket","Cushion cover","Table runner"],
+  bags:["Market tote","Coin pouch","Shell clutch","Bottle sling","Phone bag"]
+};
+
+let config = structuredClone(DEFAULT_CONFIG);
+let items = [];           // {id, cat, title, price, note, asset, createdAt}
+let active = 0;           // category index
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),3200); }
+const cat = () => config.categories[active] || config.categories[0];
+const catItems = id => items.filter(i => i.cat === id).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+
+/* ---------- render: chrome ---------- */
+function renderChrome(){
+  document.title = config.shopName + " — handmade crochet";
+  $("#logo").textContent = config.shopName;
+  $("#tagline").textContent = config.tagline;
+  const nav = config.categories.map((c,i)=>`<a class="cl" href="#shop" data-i="${i}">${esc(c.name)}</a>`).join("") +
+    `<a href="#contact">Contact</a>` ;
+  $("#navlinks").innerHTML = nav;
+  $("#navlinks").querySelectorAll("a[data-i]").forEach(a=>a.onclick=()=>selectCat(+a.dataset.i));
+  $("#tabs").innerHTML = config.categories.map((c,i)=>
+    `<button class="tab" role="tab" style="--c:${esc(c.color)}" aria-selected="${i===active}" data-i="${i}">${esc(c.name)}</button>`).join("");
+  $("#tabs").querySelectorAll(".tab").forEach(b=>b.onclick=()=>selectCat(+b.dataset.i));
+  const links = [];
+  if (config.email) links.push(`<a href="mailto:${esc(config.email)}" target="_blank" rel="noopener">Email ${esc(config.email)}</a>`);
+  if (config.instagram) links.push(`<a href="https://instagram.com/${esc(config.instagram.replace(/^@/,""))}" target="_blank" rel="noopener">Instagram @${esc(config.instagram.replace(/^@/,""))}</a>`);
+  $("#contactLinks").innerHTML = links.join("");
+  $("#copy").textContent = `© ${new Date().getFullYear()} ${config.shopName}. Every piece is made by hand, so each one is slightly different.`;
+}
+
+function selectCat(i){
+  active = Math.max(0, Math.min(i, config.categories.length-1));
+  renderChrome(); renderShop();
+  setYarnColor(cat().color);
+}
+
+/* ---------- render: 3D ring carousel ---------- */
+let rot = 0, targetRot = 0, step = 60, cards = [], idx = 0;
+function renderShop(){
+  const c = cat(); if(!c) return;
+  document.documentElement.style.setProperty("--c", c.color);
+  $("#catName").textContent = c.name;
+  $("#catBlurb").textContent = c.blurb;
+  let list = catItems(c.id);
+  const sample = list.length === 0;
+  if (sample) list = (SAMPLE_NAMES[c.id] || ["Sample piece","Sample piece","Sample piece","Sample piece","Sample piece"])
+      .map((t,k)=>({ id:"s"+k, title:t, price:"", note:"", sample:true }));
+  const n = list.length, slots = Math.max(n, 7);
+  step = 360 / slots;
+  const w = innerWidth < 640 ? 190 : 250, h = Math.round(w*1.3);
+  const r = Math.round((w/2 + 26) / Math.tan(Math.PI/slots));
+  const ring = $("#ring");
+  ring.innerHTML = list.map((it,k)=>`
+    <button class="card" data-k="${k}" style="--w:${w}px;--h:${h}px;transform:rotateY(${k*step}deg) translateZ(${r}px)" aria-label="${esc(it.title)}">
+      <div class="img">${it.src ? `<img src="${esc(it.src)}" alt="${esc(it.title)}" loading="lazy" draggable="false">` : `<div class="stitch"></div>`}
+        ${it.sample ? `<span class="sample-tag">Sample</span>` : ""}</div>
+      <div class="meta"><span>${esc(it.title)}</span><span class="price">${esc(it.price)}</span></div>
+    </button>`).join("");
+  cards = [...ring.children];
+  cards.forEach(el => el.onclick = e => { if (dragMoved) return; const k=+el.dataset.k; if (k!==idx) goTo(k); else openDetail(list[k]); });
+  ring._list = list; ring._r = r;
+  idx = 0; targetRot = 0; rot = 0;
+  $("#count").textContent = `1 / ${n}`;
+}
+function goTo(k){
+  const n = cards.length; if(!n) return;
+  k = ((k % n) + n) % n;
+  // shortest path
+  let delta = k - idx; if (delta > n/2) delta -= n; if (delta < -n/2) delta += n;
+  idx = k; targetRot -= delta*step;
+  $("#count").textContent = `${k+1} / ${n}`;
+}
+$("#prev").onclick = () => goTo(idx-1);
+$("#next").onclick = () => goTo(idx+1);
+addEventListener("keydown", e => {
+  if ($("#overlay").classList.contains("open")) { if (e.key==="Escape") closeDetail(); return; }
+  const shop = $("#shop").getBoundingClientRect();
+  if (shop.top < innerHeight*.6 && shop.bottom > 0 && !e.target.closest("input,textarea")) {
+    if (e.key==="ArrowRight") goTo(idx+1); if (e.key==="ArrowLeft") goTo(idx-1);
+  }
+});
+let dragX=null, dragStartRot=0, dragMoved=false;
+const stage = $("#stage");
+stage.addEventListener("pointerdown", e => { dragX=e.clientX; dragStartRot=targetRot; dragMoved=false; });
+addEventListener("pointermove", e => { if (dragX===null) return; const dx=e.clientX-dragX; if (Math.abs(dx)>6) dragMoved=true; targetRot = dragStartRot + dx*0.25; });
+addEventListener("pointerup", () => {
+  if (dragX===null) return; dragX=null;
+  const n = cards.length; if(!n) return;
+  const k = Math.round(-targetRot/step);
+  targetRot = -k*step; idx = ((k % n)+n)%n;
+  $("#count").textContent = `${idx+1} / ${n}`;
+  setTimeout(()=>dragMoved=false, 0);
+});
+function tickRing(){
+  rot += (targetRot - rot) * (reduced ? 1 : 0.12);
+  const ring = $("#ring");
+  ring.style.transform = `translateZ(${-(ring._r||0)}px) rotateY(${rot}deg)`;
+  cards.forEach((el,k)=>{
+    let a = ((k*step + rot) % 360 + 540) % 360 - 180; // -180..180, 0 = front
+    const f = Math.cos(a*Math.PI/180);
+    el.style.opacity = Math.max(0, f*0.9+0.1).toFixed(3);
+    el.style.pointerEvents = f > 0.3 ? "auto" : "none";
+  });
+}
+
+/* ---------- detail ---------- */
+function openDetail(it){
+  const c = cat();
+  const subj = encodeURIComponent(`Question about: ${it.title}`);
+  $("#detail").innerHTML = `
+    <div class="pic">${it.src ? `<img src="${esc(it.src)}" alt="${esc(it.title)}">` : `<div class="stitch"></div>`}</div>
+    <div class="body">
+      <button class="close" id="dClose" aria-label="Close">×</button>
+      <small>${esc(c.name)}</small>
+      <h4 id="dTitle">${esc(it.title)}</h4>
+      ${it.price ? `<div class="p">${esc(it.price)}</div>` : ""}
+      <p class="n">${esc(it.note || (it.sample ? "This is a sample card. Real pieces appear here once photos are added to this category's folder." : "Made to order. Colours can be adjusted to suit you."))}</p>
+      ${config.email ? `<a class="btn primary" href="mailto:${esc(config.email)}?subject=${subj}" target="_blank" rel="noopener">Ask about this piece</a>` : ""}
+    </div>`;
+  $("#overlay").classList.add("open");
+  $("#dClose").onclick = closeDetail; $("#dClose").focus();
+}
+function closeDetail(){ $("#overlay").classList.remove("open"); }
+$("#overlay").onclick = e => { if (e.target.id==="overlay") closeDetail(); };
+
+/* ---------- three.js yarn ball ---------- */
+let setYarnColor = ()=>{};
+function initGL(){
+  if (!window.THREE) return;
+  const canvas = $("#gl");
+  let renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true }); } catch(e){ return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 760 ? 1.5 : 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100); camera.position.z = 7;
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x303a9a, 0.9));
+  const key = new THREE.DirectionalLight(0xffffff, 0.9); key.position.set(3,4,5); scene.add(key);
+  const rim = new THREE.DirectionalLight(0xffb3de, 0.5); rim.position.set(-4,-2,-3); scene.add(rim);
+
+  const outer = new THREE.Group(), ball = new THREE.Group(); outer.add(ball); scene.add(outer);
+  const yarnMat = new THREE.MeshStandardMaterial({ color:0xFFE36E, roughness:.85, metalness:0 });
+  const coreMat = new THREE.MeshStandardMaterial({ color:0xC9B24A, roughness:1 });
+  ball.add(new THREE.Mesh(new THREE.SphereGeometry(1, 48, 48), coreMat));
+  const rnd = (()=>{ let s=7; return ()=> (s = (s*16807)%2147483647)/2147483647; })();
+  for (let i=0;i<64;i++){
+    const axis = new THREE.Vector3(rnd()*2-1, rnd()*2-1, rnd()*2-1).normalize();
+    const u = new THREE.Vector3(1,0,0).cross(axis); if (u.lengthSq()<.01) u.set(0,1,0).cross(axis); u.normalize();
+    const v = axis.clone().cross(u).normalize();
+    const r = 1.0 + (i/64)*0.09;
+    const pts=[]; for(let t=0;t<48;t++){ const a=t/48*Math.PI*2; pts.push(u.clone().multiplyScalar(Math.cos(a)*r).add(v.clone().multiplyScalar(Math.sin(a)*r))); }
+    const curve = new THREE.CatmullRomCurve3(pts, true);
+    ball.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 110, 0.034, 6, true), yarnMat));
+  }
+  // loose strand trailing off
+  const tail = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0.55,-0.9,0.3), new THREE.Vector3(0.9,-1.35,0.5), new THREE.Vector3(1.5,-1.5,0.2),
+    new THREE.Vector3(2.1,-1.9,0.6), new THREE.Vector3(2.4,-2.6,0.1), new THREE.Vector3(3.3,-3.1,0.4)]);
+  outer.add(new THREE.Mesh(new THREE.TubeGeometry(tail, 140, 0.034, 6, false), yarnMat));
+  // crochet hook
+  const hook = new THREE.Group();
+  const hookMat = new THREE.MeshStandardMaterial({ color:0xFF8FC7, roughness:.35, metalness:.2 });
+  const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.05,0.05,3.2,20), hookMat); hook.add(shaft);
+  const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,1.1,20), new THREE.MeshStandardMaterial({ color:0xFFF9F2, roughness:.6 })); grip.position.y=-0.6; hook.add(grip);
+  const tip = new THREE.Mesh(new THREE.TorusGeometry(0.07,0.035,10,20,Math.PI*1.3), hookMat); tip.position.set(0.02,1.63,0); tip.rotation.z=-.4; hook.add(tip);
+  hook.position.set(-0.4,0.3,0.4); hook.rotation.set(0.3,0,-0.85); outer.add(hook);
+
+  const target = new THREE.Color(0xFFE36E), coreTarget = new THREE.Color();
+  setYarnColor = hex => { target.set(hex); };
+  setYarnColor(cat().color);
+
+  let vw=1, vh=1;
+  function resize(){ const w=innerWidth,h=innerHeight; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    vh = Math.tan(camera.fov*Math.PI/360)*camera.position.z; vw = vh*camera.aspect; renderShop(); }
+  addEventListener("resize", resize); resize();
+
+  // drag to spin in hero
+  let spinX=0.25, spinY=0.004, dragging=null;
+  const hero=$("#hero");
+  hero.addEventListener("pointerdown", e=>{ dragging={x:e.clientX,y:e.clientY}; });
+  addEventListener("pointermove", e=>{ if(!dragging) return; spinY=(e.clientX-dragging.x)*0.0009; spinX+=(e.clientY-dragging.y)*0.002; dragging={x:e.clientX,y:e.clientY}; });
+  addEventListener("pointerup", ()=>{ dragging=null; });
+
+  const pos = new THREE.Vector3(), clock = new THREE.Clock();
+  function frame(){
+    const t = clock.getElapsedTime();
+    const p = Math.min(1, scrollY / (innerHeight*0.9));
+    const e = p*p*(3-2*p);
+    const mobile = innerWidth < 760;
+    const heroX = mobile ? vw*0.35 : vw*0.42, heroY = mobile ? -vh*0.35 : -vh*0.02, heroS = mobile ? 0.9 : 1.35;
+    const endX = vw - (mobile?0.6:1.0), endY = -vh + (mobile?0.8:1.1), endS = mobile?0.35:0.5;
+    pos.set(heroX+(endX-heroX)*e, heroY+(endY-heroY)*e + (reduced?0:Math.sin(t*1.2)*0.06), 0);
+    outer.position.lerp(pos, 0.15);
+    const s = heroS+(endS-heroS)*e; outer.scale.setScalar(outer.scale.x+(s-outer.scale.x)*0.15);
+    if(!reduced || dragging){ ball.rotation.y += spinY + (dragging?0:0.003); spinY*=0.95; }
+    ball.rotation.x += (spinX - ball.rotation.x)*0.1;
+    outer.rotation.z = (reduced?0:Math.sin(t*.5)*0.05);
+    yarnMat.color.lerp(target, 0.06);
+    coreTarget.copy(target).multiplyScalar(0.72); coreMat.color.lerp(coreTarget, 0.06);
+    renderer.render(scene, camera);
+    tickRing();
+    requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/* ---------- boot ---------- */
+renderChrome(); renderShop();
+if (window.THREE) initGL(); else { (function loop(){ tickRing(); requestAnimationFrame(loop); })(); }
+
+// Load the product list generated from the assets/ folder
+fetch("manifest.json", { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(m => {
+    config = { ...DEFAULT_CONFIG, ...(m.site || {}) };
+    if (Array.isArray(m.categories) && m.categories.length) {
+      config.categories = m.categories.map(({ items: _, ...c }) => c);
+      items = m.categories.flatMap(c => (c.items || []).map((it, k) => ({ ...it, id: c.id + "-" + k, cat: c.id, createdAt: k })));
+    }
+    active = 0; renderChrome(); renderShop(); setYarnColor(cat().color);
+  })
+  .catch(err => console.warn("manifest.json not loaded, showing sample cards. Run: node scripts/build-manifest.mjs", err));
+})();
+</script>
+</body>
+</html>
