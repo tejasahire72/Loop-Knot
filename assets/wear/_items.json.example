@@ -1,0 +1,39 @@
+{
+  "01-bandana.jpg": {
+    "title": "Bandana",
+    "price": "₹199",
+    "note": "Cotton yarn, safety eyes.\nMade to order in 1–2 weeks."
+  
+},
+
+{
+  "02-hairtye.jpg": {
+    "title": "Sunflower Pot",
+    "price": "₹399",
+    "note": "Cotton yarn, safety eyes.\nMade to order in 1–2 weeks."
+},
+
+{
+  "03-flower.jpg": {
+    "title": "Sunflower Pot",
+    "price": "₹399",
+    "note": "Cotton yarn, safety eyes.\nMade to order in 1–2 weeks."
+  
+},
+
+{
+  "04-flower2.jpg": {
+    "title": "Flower",
+    "price": "₹399",
+    "note": "Cotton yarn, safety eyes.\nMade to order in 1–2 weeks."
+  
+},
+
+
+{
+  "05-flower3.jpg": {
+    "title": "Flower",
+    "price": "₹399",
+    "note": "Cotton yarn, safety eyes.\nMade to order in 1–2 weeks."
+  }
+}
